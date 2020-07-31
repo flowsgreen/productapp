@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { startCreatingProduct } from "./stateActions";
 
 export class StoreAccess extends Component {
   constructor(props) {
@@ -11,11 +12,25 @@ export class StoreAccess extends Component {
   }
   render() {
     return (
-      <div className="bg-info">
-        <pre className="text-white">{JSON.stringify(this.state, null, 2)}</pre>
-      </div>
+      <React.Fragment>
+        <div className="text-center">
+          <button className="btn btn-primary m-1" onClick={this.dispatchAction}>
+            Dispatch Action
+          </button>
+        </div>
+        <div className="bg-info">
+          <pre className="text-white">
+            {JSON.stringify(this.state, null, 2)}
+          </pre>
+        </div>
+      </React.Fragment>
     );
   }
+
+  dispatchAction = () => {
+    this.props.store.dispatch(startCreatingProduct());
+  };
+
   selectData() {
     let storeState = this.props.store.getState();
     return Object.entries(this.selectors)
